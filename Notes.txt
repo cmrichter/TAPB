@@ -1,0 +1,179 @@
+REGISTERS:
+
+0-- Precedence rules
+1-- printf,scanf format & esc. sequ.
+
+
+
+
+
+Build process in C:
+
+1) Pre-processing: Copies in source code from specified headers in #include statements
+2) Compiling: Source code rendered into binary. Called "object files" with extension *.o
+3) Linking: Hooks up refences in source code to relevant libraries & collates all source code files into one executable
+
+Structure:
+
+C requires at least one function be present as an entry point, usu.
+
+  	int main();
+
+or
+
+	int main(int argc, char* argv);
+
+Both return "0" on successful execution.
+
+C has only 32 keywords!
+
+DATA TYPES:
+
+int--- an integer, 32 bit range from -2,147,483,648 to 2,147,483,647
+short--- an integer, 16 bit, range from -32768 to 32768
+
+Integer types can be signed or unsigned. Signed is the default.
+
+float--- a floating-point number, 7 digits of precision, range from 1.E-36 to 1.E+36. Four bytes long.
+double--- a floating-point number, 13 digits of precision, range from 1.E-303 to 1.E+303. Eight bytes long (duh).
+
+char--- A single ASCII charater. One byte long.
+
+Assignment works like this:     name = value  (ie proceeds from left to right)
+
+Division involving mixed numerical types will automatically cast to whatever the variable has been defined as.
+
+CASTING
+
+Done like this:
+
+     int a;
+     float b;
+     .....
+
+     a = (int) b;
+     b = (float) a;
+
+Keep track of sizes. Don't cast from long to short or overflow will happen.
+
+SCOPE:
+
+Variables only exist within the blocks (functions) they are defined within, unless defined prior to all f'ns in which case they're global and uh-oh.
+
+CONSTANTS:
+
+Defined thus:
+
+1, 2, 3 .... int type
+1L, 10L .... long int type (no diff on modern systems, both 32 bits)
+
+Integer constants may be written in octal, decimal or hex formats
+
+1.f, 2.f.... float type
+1.0, 2.0.... double type
+ 
+Constants may be defined in pre-processor stmts:
+
+#define BLAH 10000
+
+SCANF:
+
+Same basic format as printf
+To read shit from the keybd, we need to specify not the NAME of the variable, but its address: &variable.
+
+LOGICAL EXPN'S:
+
+> < >= <= == != && ||
+
+CONDITIONALS 
+
+if (condition) stmt;
+else if(condition2) stmt;
+.....
+
+or
+
+condition ? true-expn : false-expn;
+
+or 
+
+switch(expn)
+{
+	case const 1: stmt seq.; break;
+	...
+	default: stmt seq; break;
+}
+
+
+LOOPS
+
+while(condition) -----> tests at the top of the loop (may not execute at all)
+
+do .... while(condition) ------> test at the bottom of the loop (always executes at least once
+
+and the special compact version:
+
+for(i=0;i<end;i++) stmt;
+
+"break" allows one to opt out of a loop without testing the condition, whereas "continue" allows on to test the condition from anywhere within the loop.
+
+(pg 22) BITWISE OPS:
+
+Allows one to "filter" stuff. Usual Booleans (&, |, ^ (XOR), ~ (unary op))
+
+EG
+
+FF00 expands to 1111 1111 0000 0000
+0111 expands to 0000 0001 0001 0001
+
+FF00 & 0111 --> 0000 0001 0000 0000
+
+FF00 | 0111 --> 1111 1111 0001 0001
+
+FF00 ^ 0111 --> 1111 1110 0001 0001
+
+~FF00       --> 0000 0000 1111 1111
+
+
+BITSHIFT OPS:
+
+ << >>
+
+ x << 1 shifts all bits by one position to the left
+ x >> 2 shifts all bits by two positions to the right
+
+ x << n is equivalent to multiplication by 2^n
+ x >> n is equivalent to division by 2^n (with rounding down)
+
+FUNCTIONS:
+
+A block of code typed, named, returning a value (maybe), of local scope and brace-delimited
+
+  type name(arguments)
+{
+	code
+	return(value);
+}
+
+To use a function, it must be declared (set name, args and return type) first. This may be seperate from the function's definition.
+
+ARRAYS & MATRICES (arrays of arrays):
+
+Initialized thus:
+
+	    name[rows][cols] = { { },..., { }};
+
+Strings are arrays of chars, null-terminated
+String constants are spp. by "", char const by ''
+
+POINTERS
+
+Behold:
+
+	int *pa, a;
+	pa = &a;
+
+stores the address of "a in "pa". "pa" is pointing at "a".
+
+"pa" is the address, "*pa" is the value stored at that address
+
